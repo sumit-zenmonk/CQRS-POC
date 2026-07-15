@@ -14,17 +14,19 @@ export default class RegisterUserHandler implements ICommandHandler<RegisterUser
     ) { }
 
     async execute(command: RegisterUserCommand): Promise<unknown> {
+        const body = command.body;
+
         //check if already exists using this email
-        const isUserExists = await this.userRepo.findByEmailOrname(command.body.email, command.body.username);
+        const isUserExists = await this.userRepo.findByEmailOrname(body.email, body.username);
         if (isUserExists) {
             throw new BadRequestException('User Exists with this Email or name');
         }
 
         //hashed password using bcrypt
-        command.body.password = await this.bcryptService.hashPassword(command.body.password);
+        body.password = await this.bcryptService.hashPassword(body.password);
 
         //register user in DB
-        const RegisteredUser = await this.userRepo.register(command.body);
+        const RegisteredUser = await this.userRepo.register(body);
 
         // generate token for accessing resources
         const token = await this.jwtHelperService.generateJwtToken(RegisteredUser);

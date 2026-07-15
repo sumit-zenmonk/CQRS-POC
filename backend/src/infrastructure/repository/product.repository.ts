@@ -13,6 +13,11 @@ export class ProductRepository extends Repository<ProductEntity> {
         return await this.save(product);
     }
 
+    async findOneByClause(whereClause: Record<string, any>) {
+        return await this.findOne({
+            where: whereClause,
+        });
+    }
 
     async getProductListing(offset: number, limit: number) {
         const [data, total] = await this.findAndCount({
