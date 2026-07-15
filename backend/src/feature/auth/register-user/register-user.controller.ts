@@ -9,7 +9,7 @@ export class RegisterUserController {
 
     @Post()
     async registerUser(@Body() body: RegisterUserDto) {
-        const createServiceCommand = new RegisterUserCommand(body);
-        return await this.commandBus.execute(createServiceCommand);
+        const registerUserCommand = new RegisterUserCommand(body);
+        return await this.commandBus.execute(registerUserCommand);
     }
 }
