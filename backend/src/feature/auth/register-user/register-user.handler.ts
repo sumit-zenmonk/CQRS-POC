@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { RegisterDto } from "./register-user.dto";
+import { RegisterUserDto } from "./register-user.dto";
 import { UserRepository } from "src/infrastructure/repository/user.repository";
 import { JwtHelperService } from "src/infrastructure/service/jwt.service";
 import { BcryptService } from "src/infrastructure/service/bcrypt.service";
@@ -12,7 +12,7 @@ export class RegisterUserHandler {
         private readonly bcryptService: BcryptService
     ) { }
 
-    async handle(body: RegisterDto) {
+    async handle(body: RegisterUserDto) {
         //check if already exists using this email
         const isUserExists = await this.userRepo.findByEmailOrname(body.email, body.username);
         if (isUserExists) {

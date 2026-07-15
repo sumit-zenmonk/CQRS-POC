@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { LoginDto } from "./login-user.dto";
+import { LoginUserDto } from "./login-user.dto";
 import { UserRepository } from "src/infrastructure/repository/user.repository";
 import { JwtHelperService } from "src/infrastructure/service/jwt.service";
 import { BcryptService } from "src/infrastructure/service/bcrypt.service";
@@ -12,7 +12,7 @@ export class LoginUserHandler {
         private readonly bcryptService: BcryptService
     ) { }
 
-    async handle(body: LoginDto) {
+    async handle(body: LoginUserDto) {
         //check if already exists using this email
         const isUserExists = await this.userRepo.findByEmailOrname(body.text, body.text);
         if (!isUserExists) {
