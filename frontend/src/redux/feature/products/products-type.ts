@@ -8,6 +8,12 @@ export interface ProductType {
     deleted_at: null
 }
 
+export interface CreateProductPayload {
+    name: string,
+    description: string,
+    price: number,
+}
+
 export interface ProductState {
     products: ProductType[];
     totalProductDocuments: number,

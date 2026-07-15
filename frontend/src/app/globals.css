@@ -10,7 +10,7 @@ body {
   width: 100vw;
   height: 100vh;
   font-weight: 900;
-  user-select: none;
+  /* user-select: none; */
   overflow: hidden;
 }
 

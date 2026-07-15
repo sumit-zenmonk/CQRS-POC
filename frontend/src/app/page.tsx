@@ -5,19 +5,22 @@ import { Box, Button, CircularProgress, Typography, } from "@mui/material"
 import { RootState } from "@/redux/store";
 import styles from "./home.module.css";
 import HeaderComp from "@/component/header-comp/header-comp";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { deleteProduct, fetchProducts } from "@/redux/feature/products/products-action";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ProductType } from "@/redux/feature/products/products-type";
 import { enqueueSnackbar } from "notistack";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import ProductFormModalComp from "@/component/product-form/product-form-comp";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 export default function Home() {
   const dispatch = useAppDispatch();
   const { products, totalProductDocuments, page } = useAppSelector((state: RootState) => state.productsReducer);
+  const [openCreateProductModal, setOpenCreateProductModal] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchProducts({ page: 0 })).unwrap();
+    dispatch(fetchProducts({ page: 1 })).unwrap();
   }, []);
 
   const fetchProductsListing = async () => {
@@ -41,10 +44,24 @@ export default function Home() {
     }
   }
 
+  const handleProductModalToggle = (toggle: boolean) => {
+    setOpenCreateProductModal(toggle);
+  };
+
   return (
     <Box className={styles.container}>
       <Box className={styles.headerBox}>
         <HeaderComp />
+
+        <Box className={styles.headerButtonBox}>
+          <Button
+            className={styles.headerButton}
+            startIcon={<AddOutlinedIcon />}
+            onClick={() => handleProductModalToggle(true)}
+          >
+            Create New Product
+          </Button>
+        </Box>
       </Box>
 
       <Box id="scrollableDiv" className={styles.scrollWrapper}>
@@ -82,6 +99,8 @@ export default function Home() {
           </Box>
         </InfiniteScroll>
       </Box >
+
+      <ProductFormModalComp isOpen={openCreateProductModal} onClose={() => handleProductModalToggle(false)} />
     </Box>
   )
 }
