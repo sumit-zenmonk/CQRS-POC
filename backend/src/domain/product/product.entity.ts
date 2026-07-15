@@ -1,18 +1,18 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity('user')
-export class UserEntity {
+@Entity('product')
+export class ProductEntity {
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 
     @Column({ type: "varchar", length: 150 })
-    username: string;
+    name: string;
 
-    @Column({ type: "varchar", length: 150, unique: true })
-    email: string;
+    @Column({ type: "text" })
+    description: string;
 
-    @Column()
-    password: string;
+    @Column({ type: "decimal", precision: 10, scale: 2 })
+    price: number;
 
     @CreateDateColumn()
     created_at: Date;

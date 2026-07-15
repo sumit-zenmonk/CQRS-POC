@@ -10,6 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './feature/auth/auth.module';
 import { UserRepository } from './infrastructure/repository/user.repository';
 import { CqrsModule } from '@nestjs/cqrs';
+import { ProductModule } from './feature/product/product.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { CqrsModule } from '@nestjs/cqrs';
     }),
 
     //Modules
-    AuthModule
+    AuthModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserRepository, JwtHelperService],
