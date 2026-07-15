@@ -8,6 +8,12 @@ export class ProductRepository extends Repository<ProductEntity> {
         super(ProductEntity, dataSource.createEntityManager());
     }
 
+    async createProduct(body: Partial<ProductEntity>) {
+        const product = this.create(body);
+        return await this.save(product);
+    }
+
+
     async getProductListing(offset: number, limit: number) {
         const [data, total] = await this.findAndCount({
             order: {
