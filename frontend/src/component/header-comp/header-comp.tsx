@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname, useRouter } from "next/navigation"
-import { Box, Button, Menu, MenuItem } from "@mui/material"
+import { Box, Button, Menu, MenuItem, Typography } from "@mui/material"
 import { logoutUser } from "@/redux/feature/user/user-action"
 import { RootState } from "@/redux/store"
 import styles from "./header-comp.module.css"
@@ -21,22 +21,18 @@ export default function HeaderComp() {
     return (
         <header className={styles.header}>
             <Box className={styles.leftContainer}>
-                <p>CORS</p>
+                <Typography
+                    onClick={() => router.push('/')}
+                    className={styles.title}
+                >
+                    CQRS
+                </Typography>
             </Box>
 
             <Box className={styles.rightContainer}>
 
                 {user ? (
                     <>
-                        <Button
-                            variant="outlined"
-                            onClick={() => {
-                                router.push("/")
-                            }}
-                        >
-                            Home
-                        </Button>
-
                         <Button
                             variant="outlined"
                             sx={{ color: "#DB2D43", borderColor: "#DB2D43" }}

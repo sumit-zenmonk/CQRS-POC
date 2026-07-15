@@ -12,6 +12,7 @@ body {
   font-weight: 900;
   /* user-select: none; */
   overflow: hidden;
+  background-color: #F3F0F0;
 }
 
 button:hover,
