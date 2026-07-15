@@ -1,14 +1,15 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { RegisterUserHandler } from "./register-user.handler";
 import { RegisterUserDto } from "./register-user.dto";
-
+import { CommandBus } from "@nestjs/cqrs";
+import RegisterUserCommand from "./register-user.command";
 
 @Controller('/register')
 export class RegisterUserController {
-    constructor(private readonly registerUserHandler: RegisterUserHandler) { }
+    constructor(private readonly commandBus: CommandBus) { }
 
     @Post()
     async registerUser(@Body() body: RegisterUserDto) {
-        return this.registerUserHandler.handle(body);
+        const createServiceCommand = new RegisterUserCommand(body);
+        return await this.commandBus.execute(createServiceCommand);
     }
 }

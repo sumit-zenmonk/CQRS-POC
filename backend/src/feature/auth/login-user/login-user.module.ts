@@ -9,6 +9,6 @@ import { BcryptService } from "src/infrastructure/service/bcrypt.service";
     imports: [],
     controllers: [LoginUserController],
     providers: [JwtHelperService, UserRepository, LoginUserHandler, BcryptService],
-    exports: [LoginUserModule],
+    exports: [],
 })
 export class LoginUserModule { }

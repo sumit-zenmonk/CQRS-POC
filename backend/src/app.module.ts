@@ -9,12 +9,15 @@ import { JwtHelperService } from './infrastructure/service/jwt.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './feature/auth/auth.module';
 import { UserRepository } from './infrastructure/repository/user.repository';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+
+    CqrsModule.forRoot(),
 
     TypeOrmModule.forRoot({
       ...dataSource.options,

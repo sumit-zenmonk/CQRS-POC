@@ -1,29 +1,30 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { RegisterUserDto } from "./register-user.dto";
+import { BadRequestException } from "@nestjs/common";
 import { UserRepository } from "src/infrastructure/repository/user.repository";
 import { JwtHelperService } from "src/infrastructure/service/jwt.service";
 import { BcryptService } from "src/infrastructure/service/bcrypt.service";
+import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
+import RegisterUserCommand from "./register-user.command";
 
-@Injectable()
-export class RegisterUserHandler {
+@CommandHandler(RegisterUserCommand)
+export default class RegisterUserHandler implements ICommandHandler<RegisterUserCommand> {
     constructor(
         private readonly userRepo: UserRepository,
         private readonly jwtHelperService: JwtHelperService,
         private readonly bcryptService: BcryptService
     ) { }
 
-    async handle(body: RegisterUserDto) {
+    async execute(command: RegisterUserCommand): Promise<unknown> {
         //check if already exists using this email
-        const isUserExists = await this.userRepo.findByEmailOrname(body.email, body.username);
+        const isUserExists = await this.userRepo.findByEmailOrname(command.body.email, command.body.username);
         if (isUserExists) {
             throw new BadRequestException('User Exists with this Email or name');
         }
 
         //hashed password using bcrypt
-        body.password = await this.bcryptService.hashPassword(body.password);
+        command.body.password = await this.bcryptService.hashPassword(command.body.password);
 
         //register user in DB
-        const RegisteredUser = await this.userRepo.register(body);
+        const RegisteredUser = await this.userRepo.register(command.body);
 
         // generate token for accessing resources
         const token = await this.jwtHelperService.generateJwtToken(RegisteredUser);
