@@ -1,0 +1,6 @@
+name: "cqrs-backend"
+
+services:
+  backend:
+    build:
+      target: production

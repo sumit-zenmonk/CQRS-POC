@@ -1,0 +1,17 @@
+name: "cqrs-frontend"
+
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    env_file: ./.env
+    networks:
+      - cqrs_network
+
+networks:
+  cqrs_network: # backend should start first to create this network
+    name: cqrs-backend_cqrs_network
+    external: true

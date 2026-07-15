@@ -1,0 +1,6 @@
+name: "cqrs-frontend"
+
+services:
+  frontend:
+    build:
+      target: production

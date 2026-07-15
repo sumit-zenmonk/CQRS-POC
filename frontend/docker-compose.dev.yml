@@ -1,0 +1,9 @@
+name: "cqrs-frontend"
+
+services:
+  frontend:
+    build:
+      target: dev
+    volumes:
+      - ./:/app
+      - /app/node_modules

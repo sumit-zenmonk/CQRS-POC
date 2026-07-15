@@ -1,0 +1,7 @@
+
+-> production docker ->  docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build 
+-> development docker -> docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build 
+
+
+For DB Migration
+npm run build && npm run migration:run
