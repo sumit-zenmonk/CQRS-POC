@@ -9,6 +9,31 @@
 .headerBox {
   width: 100%;
   height: 7%;
+  position: relative;
+}
+
+.headerButtonBox {
+  position: absolute;
+  right: 0;
+}
+
+.headerButton {
+  width: fit-content;
+  padding: 0.85rem;
+  background: #1e4787;
+  color: #ffffff;
+  border-radius: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(119, 90, 25, 0.18);
+}
+
+.button:hover {
+  background: #0f336c;
+  box-shadow: 0 10px 24px rgba(119, 90, 25, 0.28);
+  transform: translateY(-1px);
 }
 
 .scrollWrapper {

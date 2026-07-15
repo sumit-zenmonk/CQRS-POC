@@ -59,7 +59,7 @@ export default function Home() {
             startIcon={<AddOutlinedIcon />}
             onClick={() => handleProductModalToggle(true)}
           >
-            Create New Product
+            Create Product
           </Button>
         </Box>
       </Box>
