@@ -6,14 +6,14 @@ import { BadRequestException } from "@nestjs/common";
 @CommandHandler(DeleteProductCommand)
 export default class DeleteProductHandler implements ICommandHandler<DeleteProductCommand> {
     constructor(
-        private readonly productRepository: ProductRepository,
+        private readonly repository: ProductRepository,
     ) { }
 
     async execute(command: DeleteProductCommand): Promise<unknown> {
         const product_uuid = command.product_uuid;
 
         // check product existance
-        const isProductExists = await this.productRepository.findOneByClause({
+        const isProductExists = await this.repository.findOneByClause({
             uuid: product_uuid
         });
         if (!isProductExists) {
@@ -21,7 +21,7 @@ export default class DeleteProductHandler implements ICommandHandler<DeleteProdu
         }
 
         // delete product
-        await this.productRepository.deleteProduct(product_uuid);
+        await this.repository.deleteProduct(product_uuid);
         return;
     }
 }

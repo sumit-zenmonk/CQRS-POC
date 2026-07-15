@@ -6,14 +6,14 @@ import { BadRequestException } from "@nestjs/common";
 @CommandHandler(CreateProductCommand)
 export default class CreateProductHandler implements ICommandHandler<CreateProductCommand> {
     constructor(
-        private readonly productRepository: ProductRepository,
+        private readonly repository: ProductRepository,
     ) { }
 
     async execute(command: CreateProductCommand): Promise<unknown> {
         const body = command.body;
 
         // check same name product
-        const isProductExists = await this.productRepository.findOneByClause({
+        const isProductExists = await this.repository.findOneByClause({
             name: body.name
         });
         if (isProductExists) {
@@ -21,7 +21,7 @@ export default class CreateProductHandler implements ICommandHandler<CreateProdu
         }
 
         // create product
-        await this.productRepository.createProduct(body);
+        await this.repository.createProduct(body);
         return;
     }
 }
