@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductState, ProductType } from './products-type';
-import { fetchProducts } from './products-action';
+import { createSlice } from '@reduxjs/toolkit';
+import { ProductState } from './products-type';
+import { deleteProduct, fetchProducts } from './products-action';
 
 const initialState: ProductState = {
     products: [],
     totalProductDocuments: 0,
+    page: 0,
     loading: false,
     error: null,
 };
@@ -28,8 +29,29 @@ const ProductSlice = createSlice({
                 );
                 state.products = [...state.products, ...newProducts];
                 state.totalProductDocuments = action.payload.data.totalDocuments;
+                state.page = state.page;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload as string;
+            })
+            .addCase(deleteProduct.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                const { product_uuid, message } = action.payload;
+                state.loading = false;
+                state.error = null;
+
+                const productIndex = state.products.findIndex((product) => product.uuid === product_uuid);
+                if (productIndex !== -1) {
+                    state.totalProductDocuments = state.totalProductDocuments - 1;
+                    state.products = state.products.filter((product) => product.uuid !== product_uuid);
+                }
+
+            })
+            .addCase(deleteProduct.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
             })
