@@ -1,24 +1,6 @@
 name: "cqrs-backend"
 
 services:
-  rabbitmq:
-    image: rabbitmq:3.13.7-management-alpine
-    container_name: rabbitmq
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: always
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-    networks:
-      - cqrs_network
-
   pgadmin:
     image: dpage/pgadmin4:9.8
     ports:
@@ -50,9 +32,6 @@ services:
       dockerfile: dockerfile
     ports:
       - "8090:8090"
-    depends_on:
-      rabbitmq:
-        condition: service_healthy 
     env_file: ./.env
     networks:
       - cqrs_network
