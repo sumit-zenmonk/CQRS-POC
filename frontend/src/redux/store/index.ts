@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 
 // Reducers
 import userReducer from "../feature/user/user-slice";
+import productsReducer from "../feature/products/products-slice";
 
 const persistConfig = {
     key: "root",
@@ -14,6 +15,7 @@ const persistConfig = {
 
 const appReducer = combineReducers({
     userReducer: userReducer,
+    productsReducer: productsReducer,
 });
 
 const rootReducer = (state: any, action: any) => {
