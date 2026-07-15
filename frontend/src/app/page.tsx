@@ -18,17 +18,18 @@ export default function Home() {
   const dispatch = useAppDispatch();
   const { products, totalProductDocuments, page } = useAppSelector((state: RootState) => state.productsReducer);
   const [openCreateProductModal, setOpenCreateProductModal] = useState(false);
+  const DEFAULT_PAGE = Number(process.env.NEXT_PUBLIC_DEFAULT_PAGE) || 1;
 
   useEffect(() => {
-    dispatch(fetchProducts({ page: 1 })).unwrap();
+    dispatch(fetchProducts({ page: DEFAULT_PAGE })).unwrap();
   }, []);
 
   const fetchProductsListing = async () => {
     try {
       if (products.length >= totalProductDocuments) return;
 
-      const res = await dispatch(fetchProducts({ page: page + 1 })).unwrap();
-      console.log(page + 1, res);
+      const nextPage = page + 1;
+      await dispatch(fetchProducts({ page: nextPage })).unwrap();
     } catch (error: any) {
       enqueueSnackbar(error, { variant: "error" });
       console.log(error);

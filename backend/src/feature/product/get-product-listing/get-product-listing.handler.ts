@@ -9,8 +9,8 @@ export default class LoginUserHandler implements IQueryHandler<GetProductLisintg
     ) { }
 
     async execute(query: GetProductLisintgQuery) {
-        const page = query.page || Number(process.env.PAGE);
-        const limit = Number(process.env.LIMIT) || 10;
+        const page = query.page || Number(process.env.DEFAULT_PAGE);
+        const limit = Number(process.env.DEFAULT_LIMIT) || 10;
         const offset = (page - 1) * limit;
 
         return await this.repository.getProductListing(offset, limit);

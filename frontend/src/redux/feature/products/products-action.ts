@@ -3,6 +3,7 @@ import { RootState } from '@/redux/store';
 import { CreateProductPayload, ProductType } from './products-type';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8090";
+const DEFAULT_PAGE = Number(process.env.NEXT_PUBLIC_DEFAULT_PAGE) || 1;
 
 export const createProduct = createAsyncThunk<
     { message: string },
@@ -36,13 +37,13 @@ export const createProduct = createAsyncThunk<
 );
 
 export const fetchProducts = createAsyncThunk<
-    { message: string, data: { data: ProductType[], totalDocuments: number } },
+    { message: string, data: { data: ProductType[], total: number, page: number } },
     { page?: number },
     { state: RootState }
 >(
     "product/listing",
     async (
-        { page = 0 },
+        { page = DEFAULT_PAGE },
         { getState, rejectWithValue }
     ) => {
         try {

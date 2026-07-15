@@ -28,8 +28,8 @@ const ProductSlice = createSlice({
                         !state.products.some((existing) => existing.uuid === newProduct.uuid)
                 );
                 state.products = [...state.products, ...newProducts];
-                state.totalProductDocuments = action.payload.data.totalDocuments;
-                state.page = state.page;
+                state.totalProductDocuments = action.payload.data.total;
+                state.page = action.payload.data.page;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.loading = false;
