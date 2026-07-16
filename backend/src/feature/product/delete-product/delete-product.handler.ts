@@ -14,7 +14,7 @@ export default class DeleteProductHandler implements ICommandHandler<DeleteProdu
         const user_uuid = command.user_uuid;
 
         // check product existance
-        const isProductExists = await this.repository.findOneByClause({
+        const isProductExists = await this.repository.findOneByWhereClause({
             uuid: product_uuid,
             user_uuid: user_uuid
         });
