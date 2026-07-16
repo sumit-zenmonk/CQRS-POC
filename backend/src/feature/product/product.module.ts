@@ -4,6 +4,7 @@ import { GetProductLisintgModule } from "./get-product-listing/get-product-listi
 import { CreateProductModule } from "./create-product/create-product.module";
 import { DeleteProductModule } from "./delete-product/delete-product.module";
 import { GetProductByUuidModule } from "./get-product-by-uuid/get-product-by-uuid.module";
+import { UpdateProductModule } from "./update-product/update-product.module";
 
 @Module({
     imports: [
@@ -11,6 +12,7 @@ import { GetProductByUuidModule } from "./get-product-by-uuid/get-product-by-uui
         GetProductLisintgModule,
         DeleteProductModule,
         GetProductByUuidModule,
+        UpdateProductModule,
         RouterModule.register([
             {
                 path: 'product',
@@ -19,6 +21,7 @@ import { GetProductByUuidModule } from "./get-product-by-uuid/get-product-by-uui
                     { path: '', module: GetProductLisintgModule },
                     { path: '', module: DeleteProductModule },
                     { path: '', module: GetProductByUuidModule },
+                    { path: '', module: UpdateProductModule },
                 ],
             },
         ]),

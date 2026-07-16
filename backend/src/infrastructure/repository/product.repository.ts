@@ -19,6 +19,10 @@ export class ProductRepository extends Repository<ProductEntity> {
         });
     }
 
+    async updateOneByClauses(whereClause: Partial<ProductEntity>, updateClause: Partial<ProductEntity>) {
+        return await this.update(whereClause, updateClause);
+    }
+
     async getProductListing(offset: number, limit: number) {
         const [data, total] = await this.findAndCount({
             order: {
