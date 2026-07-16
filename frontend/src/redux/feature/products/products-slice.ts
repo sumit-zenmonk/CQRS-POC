@@ -29,7 +29,7 @@ const ProductSlice = createSlice({
                 );
                 state.products = [...state.products, ...newProducts];
                 state.totalProductDocuments = action.payload.data.total;
-                state.page = action.payload.data.page;
+                state.page = action.payload.page;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.loading = false;

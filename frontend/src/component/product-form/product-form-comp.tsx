@@ -98,6 +98,24 @@ export default function ProductFormModalComp({ isOpen, onClose }: ProductFormMod
                         )}
                     </Box>
 
+                    <Box className={styles.field}>
+                        <InputLabel htmlFor={`image-url-input`} className={styles.label}>Image URL</InputLabel>
+
+                        <TextField
+                            id={`image-url-input`}
+                            type="text"
+                            placeholder="https://example.com/image.png"
+                            fullWidth
+                            {...register("image_url")}
+                            variant="standard"
+                        />
+                        {errors.image_url && (
+                            <span className={styles.error}>
+                                {errors.image_url.message}
+                            </span>
+                        )}
+                    </Box>
+
                     <Button
                         type="submit"
                         className={styles.button}

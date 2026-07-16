@@ -13,10 +13,12 @@ import { enqueueSnackbar } from "notistack";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ProductFormModalComp from "@/component/product-form/product-form-comp";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import Image from "next/image";
 
 export default function Home() {
   const dispatch = useAppDispatch();
   const { products, totalProductDocuments, page } = useAppSelector((state: RootState) => state.productsReducer);
+  const { user } = useAppSelector((state: RootState) => state.userReducer);
   const [openCreateProductModal, setOpenCreateProductModal] = useState(false);
   const DEFAULT_PAGE = Number(process.env.NEXT_PUBLIC_DEFAULT_PAGE) || 1;
 
@@ -55,13 +57,15 @@ export default function Home() {
         <HeaderComp />
 
         <Box className={styles.headerButtonBox}>
-          <Button
-            className={styles.headerButton}
-            startIcon={<AddOutlinedIcon />}
-            onClick={() => handleProductModalToggle(true)}
-          >
-            Create Product
-          </Button>
+          {user && (
+            <Button
+              className={styles.button}
+              startIcon={<AddOutlinedIcon />}
+              onClick={() => handleProductModalToggle(true)}
+            >
+              Create Product
+            </Button>
+          )}
         </Box>
       </Box>
 
@@ -83,17 +87,20 @@ export default function Home() {
                   key={idx}
                   className={styles.card}
                 >
-                  {product.name}
-                  {product.description}
-                  {product.price}
+                  <Image src={product.image_url} alt={product.name} className={styles.productImage} width={100} height={100} />
+                  <Typography variant="h6" className={styles.productTitle}>{product.name}</Typography>
+                  <Typography variant="body2" className={styles.productDescription}>{product.description}</Typography>
+                  <Typography variant="subtitle1" className={styles.productPrice}>${product.price}</Typography>
 
-                  <Button
-                    startIcon={<DeleteOutlinedIcon />}
-                    className={styles.footerButton}
-                    onClick={async () => await handleProductDelete(product.uuid)}
-                  >
-                    Delete
-                  </Button>
+                  {user && product.user_uuid === user.uid && (
+                    <Button
+                      startIcon={<DeleteOutlinedIcon />}
+                      className={styles.deleteButton}
+                      onClick={async () => await handleProductDelete(product.uuid)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Box>
               )
             }) : <></>}

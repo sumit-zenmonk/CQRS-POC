@@ -37,7 +37,7 @@ export const createProduct = createAsyncThunk<
 );
 
 export const fetchProducts = createAsyncThunk<
-    { message: string, data: { data: ProductType[], total: number, page: number } },
+    { message: string, data: { data: ProductType[], total: number }, page: number },
     { page?: number },
     { state: RootState }
 >(
