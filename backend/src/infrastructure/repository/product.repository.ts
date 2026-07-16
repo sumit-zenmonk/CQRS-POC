@@ -13,7 +13,7 @@ export class ProductRepository extends Repository<ProductEntity> {
         return await this.save(product);
     }
 
-    async findOneByWhereClause(whereClause: Record<string, any>) {
+    async findOneByWhereClause(whereClause: Partial<ProductEntity>) {
         return await this.findOne({
             where: whereClause,
         });

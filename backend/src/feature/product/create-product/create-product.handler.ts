@@ -13,7 +13,7 @@ export default class CreateProductHandler implements ICommandHandler<CreateProdu
         const { body, user_uuid } = command;
 
         // check same name product
-        const isProductExists = await this.repository.findOneByClause({
+        const isProductExists = await this.repository.findOneByWhereClause({
             name: body.name
         });
         if (isProductExists) {
