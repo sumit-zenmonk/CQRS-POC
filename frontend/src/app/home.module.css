@@ -27,7 +27,7 @@
   letter-spacing: 0.04em;
   text-transform: none;
   transition: all 0.25s ease;
-  box-shadow: 0 6px 18px rgba(119, 90, 25, 0.18);
+  border: 1px solid rgba(119, 90, 25, 0.18);
 }
 
 .deleteButton {
@@ -38,7 +38,7 @@
 .button:hover,
 .deleteButton:hover {
   background: #ffffff;
-  box-shadow: 0 0 10px 4px rgb(184, 183, 180);
+  box-shadow: 0 0 10px 4px rgb(237, 237, 237);
   transform: translateY(-1px);
 }
 
