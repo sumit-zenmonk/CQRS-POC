@@ -27,7 +27,6 @@ const authSlice = createSlice({
             state.error = null;
             state.status = "pending";
             Cookies.remove("token")
-            Cookies.remove("role")
         },
         resetAuthError: (state) => {
             state.error = null;
@@ -47,7 +46,6 @@ const authSlice = createSlice({
                 state.error = null;
                 state.status = "succeed";
                 Cookies.set("token", action.payload.access_token)
-                Cookies.set("role", action.payload.user.role)
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
@@ -55,7 +53,6 @@ const authSlice = createSlice({
                 state.user = null;
                 state.error = action.payload as string;
                 Cookies.remove("token")
-                Cookies.remove("role")
             })
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
@@ -68,14 +65,12 @@ const authSlice = createSlice({
                 state.status = "succeed";
                 state.error = null;
                 Cookies.set("token", action.payload.access_token)
-                Cookies.set("role", action.payload.user.role)
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.status = "rejected";
                 state.error = action.payload as string;
                 Cookies.remove("token")
-                Cookies.remove("role")
             })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.user = null;
@@ -84,12 +79,10 @@ const authSlice = createSlice({
                 state.error = null;
                 state.status = "pending";
                 Cookies.remove("token")
-                Cookies.remove("role")
             })
             .addCase(logoutUser.rejected, (state, action) => {
                 state.status = 'rejected'
                 Cookies.remove("token");
-                Cookies.remove("role")
                 state.error = action.payload as string
             })
     }
