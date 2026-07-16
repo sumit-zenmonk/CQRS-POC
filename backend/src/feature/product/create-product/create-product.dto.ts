@@ -13,4 +13,8 @@ export class CreateProductDto {
     @IsNumber()
     @IsPositive()
     price: number;
+
+    @IsString()
+    @IsNotEmpty()
+    image_url: string;
 }
